@@ -1,9 +1,8 @@
 <div class="grid">
 
-<repeat group="{{ @tweets }}" value="{{ @tweet }}" counter="{{ @n }}">
-  <repeat group="{{ @tweet->images() }}" value="{{ @image }}" counter="{{ @m }}">
+<repeat group="{{ @tweets }}" value="{{ @tweet }}">
+  <repeat group="{{ @tweet->images() }}" value="{{ @image }}">
     <include href='/fragments/gallery_image.htm'/>
-
   </repeat>
 </repeat>
 

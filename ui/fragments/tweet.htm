@@ -1,4 +1,4 @@
-<div class='alert alert-info'>{{ @tweet->text }}</div>
+<div class='panel panel-primary' style="width: 40%"><div class='panel-body'>{{ @tweet->text }}</div></div>
 
 <repeat group="{{ @tweet->images() }}" value="{{ @image }}" counter="{{ @m }}">
   <img class="thumbnail img-responsive" src="{{  @image->relative_url() }}"/>
