@@ -10,16 +10,35 @@ class TweetPics
 		$this->connect_to_db($db_ini_file);
 	}
 
+	/******
+	*
+	* Returns the base directory of this installation (actually the parent directory of
+	* the lib directory in which this file resides)
+	*
+	*******/
 	public function base_dir ()
 	{
 		return __DIR__ . '/..';
 	}
 
+	/******
+	*
+	* Returns the web root directory 
+	*
+	*******/
 	public function www_dir ()
 	{
 		return $this->base_dir() . '/www';
 	}
 
+	/******
+	*
+	* Check if a tweet exists in the database
+	*
+	* Arguments: a tweet ID as supplied by twitter
+	* Returns: true if the tweet exists in our database, false otherwise
+	*
+	*******/
 	public function tweet_id_exists($tweet_id)
 	{
 		$tweet = new Tweet($this);
@@ -27,6 +46,14 @@ class TweetPics
 		return ( ( $n > 0 ) ? true : false );
 	}
 
+	/******
+	*
+	* Count the number of tweets in the database
+	*
+	* Arguments: None
+	* Returns: The number of tweets in the database
+	*
+	*******/
 	public function number_of_tweets()
 	{
 		$tweet = new Tweet($this);
@@ -34,6 +61,14 @@ class TweetPics
 	}
 
 
+	/******
+	*
+	* Get a tweet with a known ID
+	*
+	* Arguments: a tweet ID
+	* Returns: a tweet object
+	*
+	*******/
 	public function tweet ($tweet_id)
 	{
 		$tweet = new Tweet($this);
@@ -41,14 +76,16 @@ class TweetPics
 		return $tweet;
 	}
 
-	public function image ($image_id)
-	{
-		$image = new Image($this);
-		$image->load($image_id);
-		return $image;
-	}
-
-	//return collection of tweets in ID (chronological) order
+	/******
+	*
+	* Returns a subset of all tweets in the database in reverse chronological order
+	*
+	* Arguments:
+		* count (integer) : how many tweets to return
+		* offset (integer) : where in the ordered collection of tweets to start returning 
+	* Returns: An array of tweet objects
+	*
+	*******/
 	public function tweets ($count = 10, $offset = 0)
 	{
 		$tweet_mapper = new Tweet($this);
@@ -63,6 +100,14 @@ class TweetPics
 		return $tweets;
 	}
 
+	/******
+	*
+	* Creates a new tweet from parsed json data from twitter
+	*
+	* Arguments: A data structure as parsed from twitter API JSON
+	* Returns: nothing
+	*
+	*******/
 	public function create_tweet ($twitter_data)
 	{
 		$tweet = new Tweet($this);
@@ -71,9 +116,14 @@ class TweetPics
 	}
 
 
-
-
-
+	/******
+	*
+	* Connects to the database and stored the connection in the $database object property.
+	*
+	* Arguments: The path to the database .ini file
+	* Returns: Nothing
+	*
+	*******/
 	private function connect_to_db($db_ini_file)
 	{
 		$params = parse_ini_file($db_ini_file);
@@ -84,6 +134,14 @@ class TweetPics
 		$this->database =new \DB\SQL($connect_string,$username,$password);
 	}
 
+	/******
+	*
+	* Constructs the database connection string
+	*
+	* Arguments: Database parameters as parsed from the ini file 
+	* Returns: a database connection string
+	*
+	*******/
 	private function generate_db_connect_string($db_params)
 	{
 		$host = 'localhost';
