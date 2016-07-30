@@ -1,0 +1,5 @@
+<div class='alert alert-info'>{{ @tweet->text }}</div>
+
+<repeat group="{{ @tweet->images() }}" value="{{ @image }}" counter="{{ @m }}">
+  <img class="thumbnail img-responsive" src="{{  @image->relative_url() }}"/>
+</repeat>

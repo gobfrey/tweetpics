@@ -1,0 +1,11 @@
+<div class="row">
+
+<repeat group="{{ @tweets }}" value="{{ @tweet }}" counter="{{ @n }}">
+  <repeat group="{{ @tweet->images() }}" value="{{ @image }}" counter="{{ @m }}">
+      <div class="col-lg-3 col-sm-4 col-xs-6">
+        <a title="Image {{ @n }}.{{ @m }}" href="/tweet/{{ @tweet->tweet_id }}"><img class="thumbnail img-responsive" src="{{  @image->relative_url() }}"/></a>
+      </div>
+  </repeat>
+</repeat>
+
+</div>

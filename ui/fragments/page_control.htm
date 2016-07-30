@@ -1,0 +1,12 @@
+
+<nav aria-label="Page navigation">
+  <ul class="pager">
+<check if="{{ @page > 1}}">
+    <li><a href="/page/{{ @page - 1 }}">Previous</a></li>
+</check>
+<check if="{{ @next_page }}">
+    <li><a href="/page/{{ @page + 1 }}">Next</a></li>
+</check>
+  </ul>
+</nav>
+

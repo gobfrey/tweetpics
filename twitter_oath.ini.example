@@ -1,0 +1,5 @@
+[Twitter OUATH]
+oauth_access_token=<value here>
+oauth_access_token_secret=<value here>
+consumer_key=<value here>
+consumer_secret=<value here>
