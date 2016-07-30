@@ -1,5 +1,5 @@
 [database]
-host=mysql.adamfield.net
-dbname=afn_tweetpics
-username=afn_tweetpics
-password=sX4yzowYEyNq9N3JN
+host=<value here>
+dbname=<value here>
+username=<value here>
+password=<value here>
