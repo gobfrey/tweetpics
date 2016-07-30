@@ -73,6 +73,24 @@ class Image extends \DB\SQL\Mapper {
 		return '/images/' . $this->filename;
 	}
 
+	/******
+	*
+	* Used when laying out the images -- is it a wide picture
+	*
+	* Arguments: None
+	* Returns: Returns true if the image is wider than it is tall, false otherwise
+	*
+	*******/
+	public function is_wide()
+	{
+		$info = getimagesize($this->file_path());
+		if ($info[0] > $info[1])
+		{
+			return true;
+		}
+		return false;
+	}
+
 }
 
 

@@ -2,9 +2,8 @@
 
 <repeat group="{{ @tweets }}" value="{{ @tweet }}" counter="{{ @n }}">
   <repeat group="{{ @tweet->images() }}" value="{{ @image }}" counter="{{ @m }}">
-      <div class="grid-item">
-        <a title="Image {{ @n }}.{{ @m }}" href="/tweet/{{ @tweet->tweet_id }}"><img class="thumbnail img-responsive" src="{{  @image->relative_url() }}" /></a>
-      </div>
+    <include href='/fragments/gallery_image.htm'/>
+
   </repeat>
 </repeat>
 

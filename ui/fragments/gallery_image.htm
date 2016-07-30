@@ -1,0 +1,12 @@
+<check if="{{ $image->is_wide() }}">
+<true>
+      <div class="grid-item grid-item--width2">
+        <a title="Image {{ @n }}.{{ @m }}" href="/tweet/{{ @tweet->tweet_id }}"><img class="thumbnail img-responsive" src="{{  @image->relative_url() }}" /></a>
+      </div>
+</true>
+<false>
+      <div class="grid-item">
+        <a title="Image {{ @n }}.{{ @m }}" href="/tweet/{{ @tweet->tweet_id }}"><img class="thumbnail img-responsive" src="{{  @image->relative_url() }}" /></a>
+      </div>
+</false>
+</check>
