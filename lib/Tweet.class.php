@@ -19,7 +19,11 @@ class Tweet extends \DB\SQL\Mapper {
 	public function hydrate_with_twitter_data ($twitter_tweet_object)
 	{
 		$this->tweet_id = $twitter_tweet_object->id;
-		$this->text = $twitter_tweet_object->text;
+		$this->text = $twitter_tweet_object->full_text;
+		if (!$this->text)
+		{
+			$this->text = $twitter_tweet_object->text;
+		}
 
 		$datetime = new DateTime($twitter_tweet_object->created_at);
 		$datetime->setTimezone(new DateTimeZone('Europe/London'));

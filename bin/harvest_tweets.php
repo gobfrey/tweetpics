@@ -7,12 +7,18 @@ $tweetpics = new TweetPics(__DIR__ . '/../db.ini');
 
 $settings = parse_ini_file(__DIR__ . '/../twitter_oath.ini');
 
-
 $url = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
-$getfield = '?screen_name=gobfrey&count=200&exclude_replies=true&include_rts=false';
+$params = array
+(
+	'screen_name' => 'gobfrey',
+	'count' => 200,
+	'exclude_replies' => true,
+	'include_rts' => false,
+	'tweet_mode' => 'extended'
+);
+
+$getfield = '?' . http_build_query($params);
 $requestMethod = 'GET';
-
-
 
 $twitter = new TwitterAPIExchange($settings);
 $response = $twitter->setGetfield($getfield)
@@ -21,10 +27,17 @@ $response = $twitter->setGetfield($getfield)
 
 $tweets = json_decode($response);
 
+
+
+
+
+
 foreach ($tweets as $tweet)
 {
+	print $tweet->id . "\n";
 	if (tweet_is_interesting($tweet))
 	{
+		print '**** CREATING ***' . "\n";
 		$tweetpics->create_tweet($tweet);
 	}
 
