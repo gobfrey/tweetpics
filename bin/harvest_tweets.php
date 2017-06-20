@@ -34,10 +34,8 @@ $tweets = json_decode($response);
 
 foreach ($tweets as $tweet)
 {
-	print $tweet->id . "\n";
 	if (tweet_is_interesting($tweet))
 	{
-		print '**** CREATING ***' . "\n";
 		$tweetpics->create_tweet($tweet);
 	}
 
