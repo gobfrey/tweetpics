@@ -57,7 +57,12 @@ class Image extends \DB\SQL\Mapper {
 	*******/
 	public function file_path()
 	{
-		return $this->tweetpics->www_dir() . '/images/' . $this->filename;
+		$path = $this->tweetpics->www_dir() . '/images/' . $this->filename;
+		if (file_exists($path))
+		{
+			return $path;
+		}
+		return null;
 	}
 
 	/******
@@ -83,6 +88,13 @@ class Image extends \DB\SQL\Mapper {
 	*******/
 	public function is_wide()
 	{
+		$path = $this->file_path();
+
+		if (!$path)
+		{
+			return false;
+		}
+
 		$info = getimagesize($this->file_path());
 		if ($info[0] > $info[1])
 		{
