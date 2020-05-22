@@ -20,12 +20,21 @@ class Image extends \DB\SQL\Mapper {
 	public function hydrate_with_twitter_data($twitter_extended_media_object)
 	{
 		$this->image_id = $twitter_extended_media_object->id;
+
 		$url = $twitter_extended_media_object->media_url_https;
+
 		$parts = explode('/',$url);
 		$filename = array_pop($parts);
-
 		$this->filename = $filename;
-		$this->save();
+
+		if ($this->tweetpics->image_id_exists($this->image_id))
+		{
+			$this->update();
+		}
+		else
+		{
+			$this->save();
+		}
 
 
 		$this->download_image($url);
@@ -58,11 +67,7 @@ class Image extends \DB\SQL\Mapper {
 	public function file_path()
 	{
 		$path = $this->tweetpics->www_dir() . '/images/' . $this->filename;
-		if (file_exists($path))
-		{
-			return $path;
-		}
-		return null;
+		return $path;
 	}
 
 	/******
@@ -91,6 +96,11 @@ class Image extends \DB\SQL\Mapper {
 		$path = $this->file_path();
 
 		if (!$path)
+		{
+			return false;
+		}
+
+		if (!file_exists($path))
 		{
 			return false;
 		}

@@ -74,7 +74,15 @@ class Tweet extends \DB\SQL\Mapper {
 		$image = new Image($this->tweetpics);
 		$image->tweet_id = $this->tweet_id;
 		$image->hydrate_with_twitter_data($twitter_media_object);
-		$image->save();
+
+		if ($this->tweetpics->image_id_exists($image->image_id))
+		{
+			$image->update();
+		}
+		else
+		{
+			$image->save();
+		}
 	}
 }
 

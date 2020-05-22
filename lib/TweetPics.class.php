@@ -48,6 +48,21 @@ class TweetPics
 
 	/******
 	*
+	* Check if a tweet exists in the database
+	*
+	* Arguments: a tweet ID as supplied by twitter
+	* Returns: true if the tweet exists in our database, false otherwise
+	*
+	*******/
+	public function image_id_exists($image_id)
+	{
+		$tweet = new Image($this);
+		$n = $tweet->count("image_id='$image_id'");
+		return ( ( $n > 0 ) ? true : false );
+	}
+
+	/******
+	*
 	* Count the number of tweets in the database
 	*
 	* Arguments: None
@@ -115,6 +130,28 @@ class TweetPics
 		$tweet->save();
 	}
 
+	/******
+	*
+	* Creates a new tweet from parsed json data from twitter
+	*
+	* Arguments: A data structure as parsed from twitter API JSON
+	* Returns: nothing
+	*
+	*******/
+	public function update_tweet ($twitter_data)
+	{
+		$tweet_id = $twitter_data->id;
+		if ($this->tweet_id_exists($tweet_id))
+		{
+			$tweet = $this->tweet($tweet_id);
+			$tweet->hydrate_with_twitter_data($twitter_data);
+			$tweet->update();
+		}
+		else
+		{
+			$this->create_tweet($twitter_data);
+		}
+	}
 
 	/******
 	*
